@@ -11,47 +11,48 @@ LANG: C++11
 
 using namespace std;
 
-class Person{
-	int total;
-	string name;
-    public:
-	void setTotal(int);
-	int getTotal();
-	void setName(string);
-	string getName();
-};
-
-void Person::setTotal(int total){
-	this->total = total;
-}
-
-void Person::setName(string name){
-	this->name = name;
-}
-
-int Person::getTotal(){
-	return this->total;
-}
-
-string Person::getName(){
-	return this->name;
-}
-
 int main(){
 	ifstream fin("gift1.in");
 	ofstream fout("gift1.out");
-	vector<Person> personVector;
 	int numOfPeople;
 	fin >> numOfPeople;
+	int totals[numOfPeople];
+	string names[numOfPeople];
 	for(int i = 0; i < numOfPeople; i++){
-		Person person;
 		string name;
 		fin >> name;
-		person.setName(name);
-		personVector.push_back(person);
+		names[i] = name;
+		totals[i] = 0;
 	}
-	for(int i=0; i < numOfPeople; i++){
-		Person person = personVector.at(i);
-		cout << person.getName() << endl;
+	while(!fin.eof()){//While not at the end of the file
+		string curname;
+		int dollars, div;
+		fin >> curname;
+		fin >> dollars >> div;
+		int giver = 0;
+		int split = 0;
+		if(div > 0){
+			giver = (-1 * dollars) + (dollars - ((dollars/div) * div));	
+			split = dollars / div;
+		}
+		vector<string> divnames;
+		for(int i = 0; i < div; i++){
+			string name;
+			fin >> name;
+			divnames.push_back(name);
+		}
+		for(int i = 0; i < numOfPeople; i++){
+			if(names[i] == curname){
+				totals[i] += giver;
+			}
+			for(int j = 0; j < div; j++){
+				if(names[i] == divnames.at(j)){
+					totals[i] += split; 
+				}
+			}
+		}
+	}
+	for(int i = 0; i < numOfPeople ; i++){
+		fout << names[i] << " " << totals[i] << endl;
 	}
 }
