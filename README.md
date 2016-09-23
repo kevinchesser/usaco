@@ -1,2 +1,2 @@
 # usaco
-usaco problems
+[usaco problems](http://train.usaco.org/)
