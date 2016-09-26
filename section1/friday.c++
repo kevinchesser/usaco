@@ -28,6 +28,8 @@ int main(){
 		if(currentYear % 100 == 0 && currentYear % 400 == 0){
 			numOfLeapYears++;
 			checked = true;
+		}else if(currentYear % 100 == 0 && currentYear % 400 != 0){
+			checked = true;
 		}
 		if(currentYear % 4 == 0 && checked == false){
 			numOfLeapYears++;
@@ -35,5 +37,10 @@ int main(){
 		checked = false;	
 	}
 	int totalDays = ((numOfYears - numOfLeapYears) * 365) + (numOfLeapYears * 366);
+	for(int i = 0; i < totalDays; i++){
+		int day = i % 
+
+	}
+	//Can't just do it with all the days, need to take into account the actual days in the month and when the leap years are
 }
 
